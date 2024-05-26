@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 import requests
-from config import API_TOKEN
+from src.config import API_TOKEN
 
 class Topping(ABC):
     def __init__(self, url):
@@ -10,17 +10,19 @@ class Topping(ABC):
     def request(self):
         pass
 
-
 class OpenAITopping(Topping):
-    def __init__(self, url):
-        super().__init__(url)
+    def __init__(self):
+        # super().__init__(url)
+        self.url = "https://api.openai.com/v1/embeddings"
 
-    def request(self, query):
+    def request(self, text):
         header={'Content-Type': 'application/json', 'Authorization': API_TOKEN}
         payload = {
             "model":"text-embedding-3-large",
-            "input":query
+            "input":text
             }
-        
         response = requests.post(url=self.url, json=payload ,headers=header)
-        return response
+        if response.status_code == 200:
+            vector = response.json()["data"][0]["embedding"]
+            return text, vector
+        return text, None
