@@ -34,7 +34,7 @@ class PdfPreprocessing(Preprocessing):
     def preprocess(self):
         texts = []
         for i in range(self.pages):
-            data = self.reader.pages[i].extract_text().strip().split('\n')
+            data = self.reader.pages[i].extract_text().strip().split('.\n')
             data = [x.strip().replace('\n','') for x in data if x not in (' ','',""," ") ]
             texts.extend(data)
         return texts

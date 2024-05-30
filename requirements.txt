@@ -1,0 +1,4 @@
+joblib
+requests
+pandas
+PyPDF2

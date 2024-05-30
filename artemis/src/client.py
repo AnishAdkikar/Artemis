@@ -5,9 +5,8 @@ import requests
 @dataclass
 class VectorDb:
     user: str
-    password: str
     url: str = "http://127.0.0.1:8080"
-    threads: int = 10
+    threads: int = 100
 
     def __post_init__(self):
         self.session = requests.Session()
